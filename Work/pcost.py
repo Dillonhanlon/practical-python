@@ -1,19 +1,25 @@
 # pcost.py
-#
-# Exercise 1.27
 
-
-#f = open('Data/portfolio.csv','rt')
+import csv
 def portfolio_cost(filename):
-    f = open(filename,'rt')
-    tot_cost = 0
-    headers = next(f)
-    for line in f:
-        row = line.split(',')
+    
+    tot_cost = 0.0
+
+    f = open(filename, 'rt')
+    rows = csv.reader(f)
+    headers = next(rows)
+    for row in rows:
+
         shares = int(row[1])
         share_price = float(row[2])
-        tot_cost += share_price * shares
+        tot_cost += shares * share_price
     return tot_cost
 
-cost = portfolio_cost('Data/portfolio.csv')
-print('Total Cost:', cost)
+import sys
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = input('Enter a filename:')
+
+cost = portfolio_cost(filename)
+print('Total cost:', cost)
