@@ -30,3 +30,16 @@ def read_prices(filename):
                 pass
     return prices
 
+portfolio = read_portfolio('Data/portfolio.csv')
+prices    = read_prices('Data/prices.csv')
+
+total_cost = 0.0
+total_value = 0.0
+for s in portfolio:
+    total_cost += s['shares']*s['price']
+    total_value += s['shares']*prices[s['name']]
+
+print('Total cost', total_cost)
+print('Current value', total_value)
+print('Gain', total_value - total_cost)
+
