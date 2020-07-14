@@ -43,3 +43,19 @@ print('Total cost', total_cost)
 print('Current value', total_value)
 print('Gain', total_value - total_cost)
 
+def make_report(portfolio,prices):
+    rows = []
+    for r in portfolio:
+        price = prices[r['name']]
+        change = price - r['price']
+        Final = (r['name'], r['shares'], price, change)
+        rows.append(Final)
+    return rows
+
+report = make_report(portfolio, prices)
+
+headers = ('Name', 'Shares', 'Price', 'Change')
+print('%8s %8s %8s %8s' % headers)
+print(('-' * 8 + ' ') * len(headers))
+for row in report:
+    print('%8s %8d %8.2f %8.2f' % row)
