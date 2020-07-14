@@ -8,11 +8,15 @@ def portfolio_cost(filename):
     f = open(filename, 'rt')
     rows = csv.reader(f)
     headers = next(rows)
-    for row in rows:
+    for rowno, row in enumerate(rows,start = 1):
+        record = dict(zip(headers, row))
+        try:
+            nshares = int(record['shares'])
+            price = float(record['price'])
+            tot_cost += nshares * price
 
-        shares = int(row[1])
-        share_price = float(row[2])
-        tot_cost += shares * share_price
+        except ValueError:
+            print(f'Row {rowno}: Bad row: {row}')
     return tot_cost
 
 import sys
