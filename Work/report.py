@@ -58,4 +58,4 @@ headers = ('Name', 'Shares', 'Price', 'Change')
 print('%8s %8s %8s %8s' % headers)
 print(('-' * 8 + ' ') * len(headers))
 for row in report:
-    print('%8s %8d %8.2f %8.2f' % row)
+    print('%8s %8d $%8.2f %8.2f' % row)
