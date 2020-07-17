@@ -1,33 +1,13 @@
 # report.py
 import csv
+from fileparse import parse_csv
 
 def read_portfolio(filename):
-    portfolio = []
-    with open(filename) as f:
-        rows = csv.reader(f)
-        headers = next(rows)
+    return parse_csv(filename, select=['name','shares','price'], types=[str,int,float])
 
-        for row in rows:
-            record = dict(zip(headers, row))
-            stock = {
-                'name' : record['name'],
-                'shares' : int(record['shares']),
-                'price' : float(record['price'])
-            }
-            portfolio.append(stock)
-
-    return portfolio
 
 def read_prices(filename):
-    prices = {}
-    with open(filename,'rt') as f:
-        rows = csv.reader(f) 
-        for row in rows:
-            try:
-                prices[row[0]] = float(row[1])
-            except IndexError:
-                pass
-    return prices
+    return dict(parse_csv(filename,types=[str,float], has_headers=False))
 
 
 # total_cost = 0.0
