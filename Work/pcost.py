@@ -1,23 +1,10 @@
 # pcost.py
-
 import csv
+from report import read_portfolio
 def portfolio_cost(filename):
     
-    tot_cost = 0.0
-
-    f = open(filename, 'rt')
-    rows = csv.reader(f)
-    headers = next(rows)
-    for rowno, row in enumerate(rows,start = 1):
-        record = dict(zip(headers, row))
-        try:
-            nshares = int(record['shares'])
-            price = float(record['price'])
-            tot_cost += nshares * price
-
-        except ValueError:
-            print(f'Row {rowno}: Bad row: {row}')
-    return tot_cost
+    portfolio = read_portfolio(filename)
+    return sum([s['shares']*s['price'] for s in portfolio])
 
 import sys
 if len(sys.argv) == 2:
