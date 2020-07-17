@@ -10,16 +10,6 @@ def read_prices(filename):
     return dict(parse_csv(filename,types=[str,float], has_headers=False))
 
 
-# total_cost = 0.0
-# total_value = 0.0
-# for s in portfolio:
-#     total_cost += s['shares']*s['price']
-#     total_value += s['shares']*prices[s['name']]
-
-# print('Total cost', total_cost)
-# print('Current value', total_value)
-# print('Gain', total_value - total_cost)
-
 def make_report(portfolio,prices):
     rows = []
     for r in portfolio:
@@ -47,10 +37,12 @@ def portfolio_report(portfolio_filename,prices_filename):
     # Print it out
     print_report(report)
 
-portfolio_report('Data/portfolio.csv','Data/prices.csv')
 
-# import sys
-# if len(sys.argv) == 2:
-#     filename = sys.argv[1]
-# else:
-#     filename = input('Enter a filename:')
+def main(args):
+    if len(args) !=3:
+        raise SystemExit(f'Usage: {sys.argv[0]}' 'portfile pricefile')
+    portfolio_report(args[1],args[2])
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
